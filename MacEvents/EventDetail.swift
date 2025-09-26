@@ -26,7 +26,6 @@ struct EventDetail: View {
                 LocationMap(event: event)
                     .frame(height:550)
                     .padding(.top,-100)
-                //                    .offset(y: 20)
                 
                 CircleImage(image:event.circleImage)
                     .offset(y: -130)
