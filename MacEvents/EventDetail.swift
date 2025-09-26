@@ -17,6 +17,7 @@ import MapKit
 struct EventDetail: View {
     let event: Event
     
+    
     var body: some View {
         VStack{
             if event.coord != nil {
@@ -25,7 +26,7 @@ struct EventDetail: View {
                 LocationMap(event: event)
                     .frame(height:550)
                     .padding(.top,-100)
-                    .offset(y: 20)
+                //                    .offset(y: 20)
                 
                 CircleImage(image:event.circleImage)
                     .offset(y: -130)
@@ -35,10 +36,38 @@ struct EventDetail: View {
                     Text(event.title)
                         .font(.title2)
                         .bold()
+                        .frame(maxWidth: .infinity, alignment: .center)
                     Text(event.date)
                         .font(.title3)
                         .bold()
+                        .frame(maxWidth: .infinity, alignment: .center)
                     Text("Time: \(event.time ?? defaultTime)")
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    
+                    HStack{
+                        Link("More Info", destination: URL(string: event.link)!)
+                            .frame(height: 30)
+                            .buttonStyle(.borderedProminent)
+                        
+                        
+                        if let coords = event.coord {
+                            let eventCoord = CLLocationCoordinate2D(
+                                latitude: coords[0],
+                                longitude: coords[1]
+                            )
+                            
+                            Button(action: {
+                                openWalkingDirections(to: eventCoord, placeName: event.location)
+                            }) {
+                                Label("Location", systemImage: "mappin.and.ellipse")
+                            }
+                            .buttonStyle(.borderedProminent)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    
+                    Spacer()
+                        .padding(.vertical, 38)
                     
                     Divider()
                     
@@ -48,12 +77,6 @@ struct EventDetail: View {
                             Spacer()
                         }.frame(width: 410)
                     }
-                    
-                    VStack {
-                        Link("More Info",
-                             destination: URL(
-                                string: event.link)!)
-                    } .frame(width: 410, alignment: .center)
                 }
                 .padding(.leading)
             } else {
@@ -68,10 +91,13 @@ struct EventDetail: View {
                     Text(event.title)
                         .font(.title2)
                         .bold()
+                        .frame(maxWidth: .infinity, alignment: .center)
                     Text(event.date)
                         .font(.title3)
                         .bold()
+                        .frame(maxWidth: .infinity, alignment: .center)
                     Text("Time: \(event.time ?? defaultTime)")
+                        .frame(maxWidth: .infinity, alignment: .center)
                     
                     Divider()
                     
@@ -80,21 +106,25 @@ struct EventDetail: View {
                             Text(event.description)
                             Spacer()
                         }
-                        .frame(width: 410)
+                        .frame(width: 380)
                     }
-                    
-                    VStack {
-                        Link("More Info",
-                             destination: URL(
-                                string: event.link)!)
-                    }
-                    .frame(width: 410, alignment: .center)
+                    Link("More Info", destination: URL(string: event.link)!)
+                        .frame(height: 30)
+                        .buttonStyle(.borderedProminent)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.leading)
                 }
-                .padding(.leading)
-               
+                
             }
-
         }
+    }
+    /// Opens Apple Maps with walking directions
+    private func openWalkingDirections(to coordinate: CLLocationCoordinate2D, placeName: String) {
+        let destination = MKMapItem(placemark: MKPlacemark(coordinate: coordinate))
+        destination.name = placeName
+        destination.openInMaps(launchOptions: [
+            MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking
+        ])
     }
 }
 

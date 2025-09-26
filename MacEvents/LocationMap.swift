@@ -54,40 +54,21 @@ public struct LocationMap: View {
                 UserAnnotation()
             }
             .mapStyle(.hybrid)
-            
-            // 🚶 Walking Directions Button
-            Button(action: {
-                openWalkingDirections(to: eventCoord, placeName: event.location)
-            }) {
-                Label("Walk", systemImage: "figure.walk")
-                    .padding(8)
-                    .background(.ultraThinMaterial)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-            }
-            .padding()
         }
+        
     }
     
-    /// Opens Apple Maps with walking directions
-    private func openWalkingDirections(to coordinate: CLLocationCoordinate2D, placeName: String) {
-        let destination = MKMapItem(placemark: MKPlacemark(coordinate: coordinate))
-        destination.name = placeName
-        destination.openInMaps(launchOptions: [
-            MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking
-        ])
+    #Preview {
+        let event = Event(
+            id: "10",
+            title: "FreakCon",
+            location: "Janet Wallace Fine Arts Center",
+            date: "Saturday, May 10, 2025",
+            description: "FreakCon 2025 2nd Bicentennial Anniversary",
+            link: "google.com",
+            coord: [44.93749, -93.16959]
+        )
+        
+        LocationMap(event: event)
     }
-}
-
-#Preview {
-    let event = Event(
-        id: "10",
-        title: "FreakCon",
-        location: "Janet Wallace Fine Arts Center",
-        date: "Saturday, May 10, 2025",
-        description: "FreakCon 2025 2nd Bicentennial Anniversary",
-        link: "google.com",
-        coord: [44.93749, -93.16959]
-    )
-    
-    LocationMap(event: event)
 }
