@@ -30,7 +30,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		B82E8B7E2E8D782500BFBF56 /* Exceptions for "MacEvents" folder in "MacEvents" target */ = {
+		B82E8B492E8C836800BFBF56 /* Exceptions for "MacEvents" folder in "MacEvents" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -43,7 +43,7 @@
 		2DE6BC032D84177700B8B948 /* MacEvents */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B82E8B7E2E8D782500BFBF56 /* Exceptions for "MacEvents" folder in "MacEvents" target */,
+				B82E8B492E8C836800BFBF56 /* Exceptions for "MacEvents" folder in "MacEvents" target */,
 			);
 			path = MacEvents;
 			sourceTree = "<group>";
@@ -413,6 +413,8 @@
 				INFOPLIST_FILE = MacEvents/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "User location is required to place pin on campus map.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need microphone access to let you dictate questions to Scottie AI.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "We use speech recognition so you can ask Scottie AI questions by voice.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -456,6 +458,8 @@
 				INFOPLIST_FILE = MacEvents/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "User location is required to place pin on campus map.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need microphone access to let you dictate questions to Scottie AI.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "We use speech recognition so you can ask Scottie AI questions by voice.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
