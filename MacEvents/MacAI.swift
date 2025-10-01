@@ -367,7 +367,7 @@ struct MacAI: View {
     // MARK: - Data
     private func loadEvents() async {
         do {
-            let url = URL(string: "https://pixellabforcanva.com/events")!
+            let url = URL(string: "https://mac-events-494-e4c3b3cxfhdca5fh.centralus-01.azurewebsites.net/events")!
             let (data, _) = try await URLSession.shared.data(from: url)
             let events = try JSONDecoder().decode([Event].self, from: data)
             allEvents = events
