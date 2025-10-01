@@ -29,9 +29,22 @@
 		2DE6BC1C2D84177F00B8B948 /* MacEventsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacEventsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		B82E8B7E2E8D782500BFBF56 /* Exceptions for "MacEvents" folder in "MacEvents" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 2DE6BC002D84177700B8B948 /* MacEvents */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		2DE6BC032D84177700B8B948 /* MacEvents */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				B82E8B7E2E8D782500BFBF56 /* Exceptions for "MacEvents" folder in "MacEvents" target */,
+			);
 			path = MacEvents;
 			sourceTree = "<group>";
 		};
