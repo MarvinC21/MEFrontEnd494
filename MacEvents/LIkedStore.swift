@@ -4,8 +4,12 @@ import SwiftUI
 final class LikedStore: ObservableObject {
     @Published var ids: Set<String> = []
     private let key = "liked_event_ids_v1"
+    private let defaults: UserDefaults
 
-    init() { load() }
+    init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
+        load()
+    }
 
     func contains(_ id: String) -> Bool { ids.contains(id) }
 
@@ -20,12 +24,12 @@ final class LikedStore: ObservableObject {
     }
 
     private func load() {
-        if let arr = UserDefaults.standard.array(forKey: key) as? [String] {
+        if let arr = defaults.array(forKey: key) as? [String] {
             ids = Set(arr)
         }
     }
 
     private func save() {
-        UserDefaults.standard.set(Array(ids), forKey: key)
+        defaults.set(Array(ids), forKey: key)
     }
 }

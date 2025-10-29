@@ -42,15 +42,19 @@ struct LikedStoreTests {
     }
     
     @Test func testPersistenceLoadAndSave() {
-        let key = "liked_event_ids_v1"
-        let store = LikedStore()
+        // Use an isolated, temporary UserDefaults suite
+        let suiteName = "test_suite_\(UUID().uuidString)"
+        let testDefaults = UserDefaults(suiteName: suiteName)!
+        testDefaults.removePersistentDomain(forName: suiteName)
+
+        let store = LikedStore(defaults: testDefaults)
         store.ids = ["eventA", "eventB"]
         store.toggle("eventC") // triggers save
         
-        // Manually reinitialize (simulate new launch)
-        let newStore = LikedStore()
-        let storedArray = UserDefaults.standard.array(forKey: key) as? [String] ?? []
-        
+        // Simulate re-launch
+        let newStore = LikedStore(defaults: testDefaults)
+        let storedArray = testDefaults.array(forKey: "liked_event_ids_v1") as? [String] ?? []
+
         #expect(Set(storedArray).isSuperset(of: ["eventA", "eventB", "eventC"]))
         #expect(newStore.ids.isSuperset(of: ["eventA", "eventB", "eventC"]))
     }
