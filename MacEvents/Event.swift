@@ -68,6 +68,9 @@ struct Event: Identifiable, Codable, Comparable {
         return setImage(location: location, defaultImage: "MacLogoTextless")
     }
     
+    func checkIfDateIsNull() -> Bool {
+        return self.date.isEmpty
+    }
     /**
      Converts date string into a date object for comparison
      */
