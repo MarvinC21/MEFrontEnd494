@@ -10,7 +10,7 @@ import SwiftUI
 
 ///
 /// An image formatted in the shape of a circle with detailling
-/// 
+///
 struct CircleImage: View {
     var image: Image
     var body: some View {

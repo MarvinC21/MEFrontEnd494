@@ -2,18 +2,13 @@
 //  MacEvents
 //
 //  Created by Iren Sanchez on 4/23/25.
-//
+//  Updated: share Macalester URL only + system share sheet
 
-import Foundation
 import SwiftUI
 import CoreLocation
 import MapKit
+import UIKit
 
-///
-/// The navigation view page where all event details
-/// are available after clicking on corresponding event widget
-/// Return different view depending on whether there are event coordinates or not
-///
 struct EventDetail: View {
     let event: Event
     
@@ -127,18 +122,133 @@ struct EventDetail: View {
     }
 }
 
+// MARK: - Small helpers
+
+private struct ZstackFallback: View {
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .fill(.thinMaterial)
+            Image(systemName: "map")
+                .font(.system(size: 44, weight: .semibold))
+                .foregroundStyle(.secondary)
+        }
+    }
+}
+
+// MARK: - Subviews
+
+private struct PillIconButton: View {
+    var title: String?
+    var systemImage: String
+    var action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            if let title {
+                Label(title, systemImage: systemImage)
+                    .labelStyle(.titleAndIcon)
+            } else {
+                Image(systemName: systemImage)
+            }
+        }
+        .buttonStyle(.borderedProminent)
+        .buttonBorderShape(.capsule)
+        .controlSize(.large)
+    }
+}
+
+private struct CopiedToast: View {
+    var body: some View {
+        Label("Link copied", systemImage: "checkmark.circle.fill")
+            .font(.subheadline.weight(.semibold))
+            .padding(.horizontal, 14)
+            .padding(.vertical, 10)
+            .background(.ultraThinMaterial, in: Capsule())
+            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
+            .padding(.top, 4)
+    }
+}
+
+private struct InfoSheet: View {
+    let event: Event
+    let url: URL?
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    Text(event.title).font(.title2.bold())
+
+                    if !event.location.isEmpty {
+                        Label(event.location, systemImage: "mappin.and.ellipse")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
+
+                    HStack(spacing: 8) {
+                        Label(event.date, systemImage: "calendar")
+                        if let time = event.time, !time.isEmpty {
+                            Label(time, systemImage: "clock")
+                        }
+                    }
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+
+                    Divider()
+
+                    if !event.description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        Text(event.description)
+                            .font(.body)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+
+                    if let url {
+                        Link(destination: url) {
+                            Label("Open website", systemImage: "safari")
+                                .font(.body.weight(.semibold))
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 12)
+                                .background(.blue.opacity(0.12), in: RoundedRectangle(cornerRadius: 12))
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+                .padding()
+            }
+            .navigationTitle("More info")
+            .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+}
+
+// MARK: - UIKit share sheet wrapper
+
+private struct ActivityView: UIViewControllerRepresentable {
+    let activityItems: [Any]
+    let applicationActivities: [UIActivity]? = nil
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
+    }
+
+    func updateUIViewController(_ controller: UIActivityViewController, context: Context) { }
+}
+
+// MARK: - Preview
+
 #Preview {
     let sampleEvent = Event(
-            id: "hi",
-            title: "Sample Event",
-            location:"Macalester",
-            date: "Sunday, March 13th, 2025",
-            time: nil,
-            description: "test description",
-            link: "google.com",
-            starttime: "1400",
-            endtime: "1600",
-            coord: [44.93749, -93.16959]
-            )
-    EventDetail(event: sampleEvent)
+        id: "abc123",
+        title: "Sample Event",
+        location: "Macalester College",
+        date: "Sunday, March 13, 2025",
+        time: "2:00–4:00 PM",
+        description: "A friendly example of an event with a longer description. Bring snacks!",
+        link: "https://www.macalester.edu/calendar/event/?id=16018",
+        starttime: "1400",
+        endtime: "1600",
+        coord: [44.93749, -93.16959]
+    )
+    NavigationStack { EventDetail(event: sampleEvent) }
 }

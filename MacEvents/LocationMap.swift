@@ -1,56 +1,26 @@
-//
-//  LocationMap.swift
-//  MacEvents
-//
-//  Created by Marvin Swift on 4/30/25.
-//
-
 import SwiftUI
 import MapKit
 
-///
-/// A map view on which event location and user
-/// location (if permitted) are displayed
-///
-public struct LocationMap: View {
-    var event: Event
-    
-    init(event: Event) {
-        self.event = event
-    }
-    
-    public var body: some View {
-        let eventCoord = CLLocationCoordinate2D(
-            latitude: event.coord![0],
-            longitude: event.coord![1]
-        )
-        
-        let campusCenter = CLLocationCoordinate2D(
-            latitude: 44.937913,
-            longitude: -93.168521
-        )
-        
+struct LocationMap: View {
+    let event: Event
+
+    init(event: Event) { self.event = event }
+
+    var body: some View {
+        // Safely read lat/lon
+        let lat = event.coord?[0] ?? 44.937913
+        let lon = event.coord?[1] ?? -93.168521
+        let eventCoord = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+
         let region = MKCoordinateRegion(
-            center: campusCenter,
-            latitudinalMeters: 450,
-            longitudinalMeters: 60
+            center: eventCoord,
+            latitudinalMeters: 600,
+            longitudinalMeters: 600
         )
-        
+
         ZStack(alignment: .bottomTrailing) {
-            // Main map
-            Map(
-                initialPosition: .region(region),
-                bounds: MapCameraBounds(
-                    centerCoordinateBounds: region,
-                    maximumDistance: 1100
-                ),
-                interactionModes: [.zoom, .pan]
-            ) {
-                // Event marker
-                Marker(coordinate: eventCoord) {
-                    Text(event.location)
-                }
-                // User location
+            Map(initialPosition: .region(region), interactionModes: [.zoom, .pan]) {
+                Marker(event.location, coordinate: eventCoord)
                 UserAnnotation()
             }
             .mapStyle(.hybrid)
