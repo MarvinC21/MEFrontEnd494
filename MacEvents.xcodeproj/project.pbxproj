@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B8BD5B742EC69CE400AB308F /* TestPlan.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = B8BD5B732EC69CE400AB308F /* TestPlan.xctestplan */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		2DE6BC132D84177F00B8B948 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,10 +31,13 @@
 		2DE6BC012D84177700B8B948 /* MacEvents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacEvents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DE6BC122D84177F00B8B948 /* MacEventsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacEventsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DE6BC1C2D84177F00B8B948 /* MacEventsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MacEventsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8BD5B632EC69B5F00AB308F /* _Testing_Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = _Testing_Foundation.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/_Testing_Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		B8BD5B642EC69B5F00AB308F /* Testing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Testing.framework; path = Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework; sourceTree = DEVELOPER_DIR; };
+		B8BD5B732EC69CE400AB308F /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		B82E8B492E8C836800BFBF56 /* Exceptions for "MacEvents" folder in "MacEvents" target */ = {
+		B8C8BDEB2EC69E43006FF52F /* Exceptions for "MacEvents" folder in "MacEvents" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -43,7 +50,7 @@
 		2DE6BC032D84177700B8B948 /* MacEvents */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B82E8B492E8C836800BFBF56 /* Exceptions for "MacEvents" folder in "MacEvents" target */,
+				B8C8BDEB2EC69E43006FF52F /* Exceptions for "MacEvents" folder in "MacEvents" target */,
 			);
 			path = MacEvents;
 			sourceTree = "<group>";
@@ -53,7 +60,7 @@
 			path = MacEventsTests;
 			sourceTree = "<group>";
 		};
-		2DE6BC1F2D84177F00B8B948 /* MacEventsUITests */ = {
+		B8BD5B602EC69B3300AB308F /* MacEventsUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = MacEventsUITests;
 			sourceTree = "<group>";
@@ -88,9 +95,11 @@
 		2DE6BBF82D84177700B8B948 = {
 			isa = PBXGroup;
 			children = (
+				B8BD5B732EC69CE400AB308F /* TestPlan.xctestplan */,
 				2DE6BC032D84177700B8B948 /* MacEvents */,
 				2DE6BC152D84177F00B8B948 /* MacEventsTests */,
-				2DE6BC1F2D84177F00B8B948 /* MacEventsUITests */,
+				B8BD5B602EC69B3300AB308F /* MacEventsUITests */,
+				B8BD5B622EC69B5F00AB308F /* Frameworks */,
 				2DE6BC022D84177700B8B948 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -103,6 +112,15 @@
 				2DE6BC1C2D84177F00B8B948 /* MacEventsUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B8BD5B622EC69B5F00AB308F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B8BD5B632EC69B5F00AB308F /* _Testing_Foundation.framework */,
+				B8BD5B642EC69B5F00AB308F /* Testing.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -167,7 +185,7 @@
 				2DE6BC1E2D84177F00B8B948 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				2DE6BC1F2D84177F00B8B948 /* MacEventsUITests */,
+				B8BD5B602EC69B3300AB308F /* MacEventsUITests */,
 			);
 			name = MacEventsUITests;
 			packageProductDependencies = (
@@ -195,6 +213,7 @@
 					};
 					2DE6BC1B2D84177F00B8B948 = {
 						CreatedOnToolsVersion = 16.2;
+						LastSwiftMigration = 2610;
 						TestTargetID = 2DE6BC002D84177700B8B948;
 					};
 				};
@@ -208,6 +227,8 @@
 			);
 			mainGroup = 2DE6BBF82D84177700B8B948;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 2DE6BC022D84177700B8B948 /* Products */;
 			projectDirPath = "";
@@ -225,6 +246,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8BD5B742EC69CE400AB308F /* TestPlan.xctestplan in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,9 +512,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = APR7SJD997;
+				DEVELOPMENT_TEAM = QY5YK8YYL5;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
@@ -513,9 +536,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = APR7SJD997;
+				DEVELOPMENT_TEAM = QY5YK8YYL5;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
@@ -535,9 +559,10 @@
 		2DE6BC2D2D84177F00B8B948 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = APR7SJD997;
+				DEVELOPMENT_TEAM = QY5YK8YYL5;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
@@ -547,6 +572,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
 				TEST_TARGET_NAME = MacEvents;
@@ -557,9 +583,10 @@
 		2DE6BC2E2D84177F00B8B948 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = APR7SJD997;
+				DEVELOPMENT_TEAM = QY5YK8YYL5;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
