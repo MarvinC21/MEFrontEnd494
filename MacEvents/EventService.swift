@@ -2,23 +2,81 @@ import Foundation
 
 protocol EventService {
     func fetchEvents() async throws -> [Event]
+    func checkHealth() async -> Bool 
 }
 
 struct RemoteEventService: EventService {
     var session: URLSession
-    let url: URL
+    let base_url: URL
+    let events_url: URL
+    let health_url: URL
 
-    init(url: URL = URL(string: "https://mac-events-494-e4c3b3cxfhdca5fh.centralus-01.azurewebsites.net/events")!,
+    init(base_url: URL = URL(string: "https://mac-events-494-e4c3b3cxfhdca5fh.centralus-01.azurewebsites.net")!,
          session: URLSession = .shared) {
-        self.url = url
+        self.base_url = base_url
+        self.events_url = base_url.appendingPathComponent("events")
+        self.health_url = base_url.appendingPathComponent("health")
         self.session = session
     }
 
     func fetchEvents() async throws -> [Event] {
-        let (data, _) = try await session.data(from: url)
+        let (data, _) = try await session.data(from: events_url)
         return try JSONDecoder().decode([Event].self, from: data)
     }
+    func checkHealth() async -> Bool {
+        var request = URLRequest(url: health_url)
+        request.httpMethod = "GET"
+        do {
+            let (data, response) = try await session.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                return true
+            } else {
+                return false
+            }
+        } catch {
+            return false
+        }
+    }
 }
+
+struct TestRemoteEventService: EventService {
+    var session: URLSession
+    let base_url: URL
+    let events_url: URL
+    let health_url: URL
+
+    init(base_url: URL = URL(string: "https://mac-events-494-e4c3b3cxfhdca5fh.centralus-01.azurewebsites.net/test")!,
+         session: URLSession = .shared) {
+        self.base_url = base_url
+        self.events_url = base_url.appendingPathComponent("events")
+        self.health_url = base_url.appendingPathComponent("health")
+        self.session = session
+    }
+
+    func fetchEvents() async throws -> [Event] {
+        let (data, _) = try await session.data(from: events_url)
+        return try JSONDecoder().decode([Event].self, from: data)
+    }
+    func checkHealth() async -> Bool {
+        var request = URLRequest(url: health_url)
+        request.httpMethod = "GET"
+        do {
+            let (data, response) = try await session.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                return true
+            } else {
+                return false
+            }
+        } catch {
+            return false
+        }
+    }
+
+}
+
+
+
+
 
 enum EventServiceFactory {
     static func make(arguments: [String] = ProcessInfo.processInfo.arguments) -> any EventService {
@@ -29,6 +87,7 @@ enum EventServiceFactory {
     }
 }
 
+
 struct SampleEventService: EventService {
     let events: [Event]
 
@@ -38,6 +97,9 @@ struct SampleEventService: EventService {
 
     func fetchEvents() async throws -> [Event] {
         events
+    }
+    func checkHealth() async -> Bool {
+        return true
     }
 
     static let defaultEvents: [Event] = {
