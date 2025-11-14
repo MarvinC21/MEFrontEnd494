@@ -23,6 +23,9 @@ struct EventFeedViewModelTests {
     private struct StubService: EventService {
         let events: [Event]
         func fetchEvents() async throws -> [Event] { events }
+        func checkHealth() async -> Bool {
+            return true
+        }
     }
 
     @Test @MainActor
